@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+<meta charset="UTF-8">
+<title>مطعم النكهة المميزة</title>
+
+<style>
+body{
+  font-family: "Segoe UI", Arial;
+  background: linear-gradient(to right,#fff3e0,#ffe0b2);
+  direction: rtl;
+  padding:20px;
+  color:#333;
+}
+
+header{
+  background: linear-gradient(135deg,#e67e22,#d35400);
+  color:white;
+  padding:25px;
+  text-align:center;
+  border-radius:15px;
+}
+
+.menu{
+  margin-top:30px;
+}
+
+.menu h2{
+  color:#d35400;
+}
+
+.item{
+  background:white;
+  border-radius:15px;
+  padding:15px;
+  margin:15px 0;
+  box-shadow:0 8px 15px rgba(0,0,0,0.1);
+  transition: transform .3s;
+}
+
+.item:hover{
+  transform: scale(1.03);
+}
+
+.item img{
+  width:100%;
+  max-width:300px;
+  border-radius:10px;
+}
+
+.item h3{
+  color:#e67e22;
+}
+
+.controls{
+  margin:30px 0;
+  text-align:center;
+}
+
+.controls button{
+  background:#27ae60;
+  color:white;
+  border:none;
+  padding:12px 20px;
+  margin:5px;
+  font-size:16px;
+  border-radius:8px;
+  cursor:pointer;
+}
+
+.controls button:hover{
+  background:#1e8449;
+}
+
+form{
+  background:white;
+  padding:20px;
+  max-width:350px;
+  margin:auto;
+  border-radius:15px;
+  box-shadow:0 8px 15px rgba(0,0,0,0.15);
+  display:none;
+}
+
+form h3{
+  text-align:center;
+  color:#2980b9;
+}
+
+input,select{
+  width:100%;
+  padding:10px;
+  margin:8px 0;
+  border-radius:6px;
+  border:1px solid #bbb;
+}
+
+input[type="submit"]{
+  background:#2980b9;
+  color:white;
+  border:none;
+  font-size:16px;
+  cursor:pointer;
+}
+
+input[type="submit"]:hover{
+  background:#1f618d;
+}
+
+footer{
+  margin-top:40px;
+  text-align:center;
+  color:#777;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <h1>🍴 مطعم النكهة المميزة</h1>
+  <p>أشهى الأطباق الشرقية والعالمية</p>
+</header>
+
+<section class="menu">
+<h2>🍽️ قائمة الطعام</h2>
+
+<div class="item">
+  <img src="https://via.placeholder.com/300x200.png?text=بيتزا">
+  <h3>بيتزا مارجريتا</h3>
+  <p>جبنة موزاريلا، صلصة طماطم</p>
+  <p>السعر: 3500 جنيه</p>
+</div>
+
+<div class="item">
+  <img src="https://via.placeholder.com/300x200.png?text=كباب">
+  <h3>كباب لحم مشوي</h3>
+  <p>يقدم مع أرز أو خبز</p>
+  <p>السعر: 5000 جنيه</p>
+</div>
+
+<div class="item">
+  <img src="https://via.placeholder.com/300x200.png?text=عصير">
+  <h3>عصير مانجو طبيعي</h3>
+  <p>طازج 100%</p>
+  <p>السعر: 1500 جنيه</p>
+</div>
+</section>
+
+<div class="controls">
+  <button onclick="showOrder()">📝 طلب وجبة</button>
+  <button onclick="showBooking()">📅 حجز طاولة</button>
+</div>
+
+<!-- طلب وجبة -->
+<form id="orderForm">
+<h3>طلب وجبة</h3>
+<input type="text" placeholder="اسم الزبون" required>
+<input type="text" placeholder="رقم الهاتف" required>
+<select required>
+  <option value="">اختر الوجبة</option>
+  <option>بيتزا مارجريتا</option>
+  <option>كباب لحم</option>
+  <option>عصير مانجو</option>
+</select>
+<input type="number" min="1" placeholder="الكمية" required>
+<input type="submit" value="إرسال الطلب">
+</form>
+
+<!-- حجز طاولة -->
+<form id="bookingForm">
+<h3>حجز طاولة</h3>
+<input type="text" placeholder="الاسم" required>
+<input type="text" placeholder="رقم الهاتف" required>
+<input type="number" min="1" placeholder="عدد الأشخاص" required>
+<input type="date" required>
+<input type="time" required>
+<input type="submit" value="تأكيد الحجز">
+</form>
+
+<footer>
+📞 0129405148 | © 2025 مطعم النكهة المميزة
+</footer>
+
+<script>
+const whatsappNumber = "249129405148"; // رقم واتساب المطعم
+
+function showOrder(){
+  document.getElementById("orderForm").style.display="block";
+  document.getElementById("bookingForm").style.display="none";
+}
+
+function showBooking(){
+  document.getElementById("bookingForm").style.display="block";
+  document.getElementById("orderForm").style.display="none";
+}
+
+/* إرسال طلب */
+document.getElementById("orderForm").addEventListener("submit",function(e){
+  e.preventDefault();
+
+  const name = this.elements[0].value;
+  const phone = this.elements[1].value;
+  const meal = this.elements[2].value;
+  const quantity = this.elements[3].value;
+
+  const message =
+`🍽️ طلب جديد
+👤 الاسم: ${name}
+📞 الهاتف: ${phone}
+🥘 الوجبة: ${meal}
+🔢 الكمية: ${quantity}`;
+
+  const url = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
+  window.open(url,"_blank");
+
+  this.reset();
+});
+
+/* إرسال حجز */
+document.getElementById("bookingForm").addEventListener("submit",function(e){
+  e.preventDefault();
+
+  const name = this.elements[0].value;
+  const phone = this.elements[1].value;
+  const people = this.elements[2].value;
+  const date = this.elements[3].value;
+  const time = this.elements[4].value;
+
+  const message =
+`📅 حجز طاولة
+👤 الاسم: ${name}
+📞 الهاتف: ${phone}
+👥 عدد الأشخاص: ${people}
+📆 التاريخ: ${date}
+⏰ الوقت: ${time}`;
+
+  const url = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
+  window.open(url,"_blank");
+
+  this.reset();
+});
+</script>
+
+</body>
+</html>
